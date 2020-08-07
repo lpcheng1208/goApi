@@ -1,0 +1,811 @@
+basePath: /
+definitions:
+  request.AppleLoginCodeAndId:
+    properties:
+      authorization_code:
+        type: string
+      user_identifier:
+        type: string
+    type: object
+  request.CreateTagReq:
+    properties:
+      tag_desc:
+        type: string
+      tag_img:
+        type: string
+      tag_name:
+        type: string
+    type: object
+  request.DataListUpdateReq:
+    properties:
+      list:
+        items:
+          properties:
+            hour:
+              type: integer
+            id:
+              type: integer
+            minute:
+              type: integer
+            remind_day:
+              type: string
+            rid:
+              type: string
+            status:
+              type: integer
+            title:
+              type: string
+          type: object
+        type: array
+    type: object
+  request.GetRedMindReq:
+    properties:
+      rid:
+        type: string
+    type: object
+  request.GetTagInfoReq:
+    properties:
+      tid:
+        type: string
+    type: object
+  request.goApiReq:
+    properties:
+      list:
+        items:
+          properties:
+            client_id:
+              type: integer
+            data:
+              type: string
+          type: object
+        type: array
+    type: object
+  request.LoginReq:
+    properties:
+      avatar:
+        type: string
+      channel:
+        type: string
+      deviceId:
+        type: string
+      email:
+        type: string
+      install:
+        type: string
+      login_type:
+        type: integer
+      nick_name:
+        type: string
+      token:
+        type: string
+      ver:
+        type: integer
+    type: object
+  request.MsgCreateReq:
+    properties:
+      msg_body:
+        type: string
+      msg_info:
+        type: string
+      msg_type:
+        type: integer
+      send_to:
+        type: string
+    type: object
+  request.MsgRecordReq:
+    properties:
+      page:
+        type: integer
+      page_size:
+        type: integer
+      send_to:
+        type: string
+    type: object
+  request.PageInfo:
+    properties:
+      page:
+        type: integer
+      page_size:
+        type: integer
+    type: object
+  request.ProductReq:
+    properties:
+      pid:
+        type: integer
+    type: object
+  request.UpdateInfoReq:
+    properties:
+      avatar:
+        type: string
+      birthday:
+        type: string
+      email:
+        type: string
+      gender:
+        type: integer
+      height:
+        type: integer
+      money:
+        type: number
+      nick_name:
+        type: string
+      rid:
+        type: integer
+      userid:
+        type: string
+      weight:
+        type: integer
+    type: object
+  request.UpdateMoneyReq:
+    properties:
+      act_desc:
+        type: string
+      act_type:
+        type: integer
+      action:
+        type: integer
+      money:
+        type: integer
+      rid:
+        type: integer
+      userid:
+        type: string
+    type: object
+  request.UpdateRedMindReq:
+    properties:
+      hour:
+        type: integer
+      id:
+        description: 客户端需要的id 原样返回
+        type: integer
+      minute:
+        type: integer
+      remind_day:
+        type: string
+      rid:
+        description: 更新以及删除记录时传入
+        type: string
+      status:
+        description: 0 关闭 1 开启 只针对更新
+        type: integer
+      title:
+        type: string
+    type: object
+  request.UpdateTagInfoReq:
+    properties:
+      status:
+        type: integer
+      tag_desc:
+        type: string
+      tag_img:
+        type: string
+      tag_name:
+        type: string
+      tid:
+        type: string
+    type: object
+  request.UsergoApiInfoReq:
+    properties:
+      rid:
+        type: integer
+    type: object
+info:
+  contact: {}
+  description: This is a sample Server pets
+  license: {}
+  title: Swagger Example API
+  version: 0.0.1
+paths:
+  /api/download/report:
+    get:
+      consumes:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      summary: 测试 api 请勿使用
+      tags:
+      - Download
+  /api/goApi/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 查询参数
+        in: body
+        name: goApiReq
+        schema:
+          $ref: '#/definitions/request.goApiReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建心率测量数据
+      tags:
+      - Heart Rate
+  /api/goApi/info:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: rid
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 获取用户的单次心率数据
+      tags:
+      - Heart Rate
+  /api/goApi/list:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 查询参数
+        in: query
+        name: client_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 获取用户的心率数据
+      tags:
+      - Heart Rate
+  /api/message/ccid:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 获取客服userid
+      tags:
+      - Message
+  /api/message/list:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 获取聊天列表
+      tags:
+      - Message
+  /api/message/record:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      - in: query
+        name: send_to
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 获取聊天内容
+      tags:
+      - Message
+  /api/message/send:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 获取参数
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.MsgCreateReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 发送信息
+      tags:
+      - Message
+  /api/product/exchange:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 请求参数
+        in: body
+        name: productId
+        schema:
+          $ref: '#/definitions/request.ProductReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 商品兑换
+      tags:
+      - Products
+  /api/product/info:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: pid
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      summary: 获取单个商品
+      tags:
+      - Products
+  /api/product/list:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{"list": []},"msg":"查询成功"}'
+          schema:
+            type: string
+      summary: 获取商品列表
+      tags:
+      - Products
+  /api/remind/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新 user info
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.UpdateRedMindReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: CreategoApiRecord User Remind
+      tags:
+      - UserRemind
+  /api/remind/delete:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新 user info
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.UpdateRedMindReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: update User Remind
+      tags:
+      - UserRemind
+  /api/remind/get:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: rid
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: Get User Remind
+      tags:
+      - UserRemind
+  /api/remind/list:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: Query User Remind
+      tags:
+      - UserRemind
+  /api/remind/update:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新 user info
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.UpdateRedMindReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: update User Remind
+      tags:
+      - UserRemind
+  /api/reminds/update:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新 user info
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.DataListUpdateReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: update User Remind
+      tags:
+      - UserRemind
+  /api/tag/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建用户标签
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.CreateTagReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建用户的标签
+      tags:
+      - Tag
+  /api/tag/delete:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除标签
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.GetTagInfoReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除标签
+      tags:
+      - Tag
+  /api/tag/info:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: tid
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 单个标签内容
+      tags:
+      - Tag
+  /api/tag/list:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用户标签列表
+      tags:
+      - Tag
+  /api/tag/update:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 修改标签
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.UpdateTagInfoReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 修改标签内容
+      tags:
+      - Tag
+  /api/task/list:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{"list": []},"msg":"查询成功"}'
+          schema:
+            type: string
+      summary: 获取商品列表
+      tags:
+      - Products
+  /api/user/info:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 查询用户的userid
+        in: path
+        name: userid
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: get user info
+      tags:
+      - User
+  /api/user/login:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 用户登录
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.LoginReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      summary: 用户登录
+      tags:
+      - User
+  /api/user/moneyChange:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新 user info
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.UpdateMoneyReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: update user money
+      tags:
+      - User
+  /api/user/test:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 测试方法
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.UpdateMoneyReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      summary: 测试方法
+      tags:
+      - User
+  /api/user/update:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新 user info
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.UpdateInfoReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: update user info
+      tags:
+      - User
+  /appLogin/AppleLoginCode:
+    post:
+      parameters:
+      - description: 苹果登陆
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.AppleLoginCodeAndId'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"登陆成功"}'
+          schema:
+            type: string
+      summary: 苹果登陆
+      tags:
+      - User
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: x-token
+    type: apiKey
+swagger: "2.0"

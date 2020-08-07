@@ -1,0 +1,53 @@
+# goApi Global Configuration
+
+# jwt configuration
+jwt:
+  signing-key: 'goApi'
+
+# mysql connect configuration
+mysql:
+  username: root
+  password: '2!n&roYT0FjI'
+  path: '127.0.0.1:3306'
+  host: '127.0.0.1'
+  port: 3306
+  db-name: 'goApi'
+  config: 'charset=utf8mb4&collation=utf8mb4_unicode_ci&parseTime=True&loc=UTC'
+  max-idle-conns: 10
+  max-open-conns: 10
+  log-mode: false
+
+# redis configuration
+redis:
+  addr: '127.0.0.1:6379'
+  password: ''
+  db: 0
+  poolsize: 500
+
+# system configuration
+system:
+  use-multipoint: true
+  env: 'test'  # Change to "develop" to skip authentication for development mode
+  addr: 8900
+  db-type: "mysql"  # support mysql/sqlite
+  gin_mode: "release"
+
+# logger configuration
+log:
+  prefix: '[goApi]'
+  log-file: false
+  stdout: 'DEBUG'
+  file: 'DEBUG'
+
+logger:
+  writers: file,stdout            # 有2个可选项：file,stdout, 可以两者同时选择输出位置，有2个可选项：file,stdout。选择file会将日志记录到logger_file指定的日志文件中，选择stdout会将日志输出到标准输出，当然也可以两者同时选择
+  logger_level: DEBUG             # 日志级别，DEBUG, INFO, WARN, ERROR, FATAL
+  logger_file: ./log/run_server.log   # 日志文件
+  logger_warn_file: ./log/wf.log
+  logger_error_file: ./log/err.log
+  log_format_text: true           # 日志的输出格式，json或者plaintext，true会输出成plaintext格式，false会输出成json格式
+  log_rolling_policy: hourly      # rotate依据，可选的有：daily, hourly。如果选daily(默认)则根据天进行转存，如果是hourly则根据小时进行转存
+  log_rotate_date: 1              # rotate转存时间，配合rollingPolicy: daily使用
+  log_rotate_size: 500            # rotate转存大小，配合rollingPolicy: size使用
+  log_backup_count: 7             # 当日志文件达到转存标准时，log系统会将该日志文件进行压缩备份，这里指定了备份文件的最大个数。
+  log_rolling_type: time          # 日志轮转的类型 time size
